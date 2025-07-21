@@ -5,16 +5,16 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-14>
-# Last Modified : <2025-07-16>
+# Last Modified : <2025-07-21>
 # ---------------------------------------------------------------
 
 unit module Rawstr4c::Version;
 
-constant VERSION = "0.2.1.0";
-constant RELEASE_DATE = "2025/07/16";
+constant VERSION = "0.2.2";
+constant RELEASE_DATE = "2025/07/21";
 
-constant Maintain_URL = "https://github.com/RubyMetric/chsrc/blob/dev/tool/rawstr4c";
-constant Maintain_URL2 = "https://gitee.com/RubyMetric/chsrc/blob/dev/tool/rawstr4c";
+constant Maintain_URL  = "https://github.com/RubyMetric/rawstr4c";
+constant Maintain_URL2 = "https://gitee.com/RubyMetric/rawstr4c";
 
 constant VERSION_CONTENT_FOR_-version = qq:to/EOF/
   rawstr4c {VERSION}
