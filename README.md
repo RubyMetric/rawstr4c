@@ -12,13 +12,13 @@
 
 # rawstr4c
 
-> raw strings for C  — `rawstr4c` frees you from the pain of manually escaping C strings and promotes you to a professional raw strings maintainer.
+`rawstr4c`: raw strings for C  — frees you from the pain of manually escaping C strings and promotes you to a professional raw strings maintainer.
 
 <br>
 
-With a dedicated Markdown file, you can explicitly define your raw strings inside code blocks, along with rules for generating variable names. By committing this file to your repository, you enable easy tracking and ongoing iteration for your raw strings.
+**The key innovation of rawstr4c is its use of a Markdown file to explicitly define raw strings inside code blocks — allowing you to fully leverage your editor’s syntax highlighting feature to beautifully render them!** After all, even languages with native raw strings or here-strings often lack proper highlighting.
 
-**The key innovation of `rawstr4c` is its use of a Markdown file — allowing you to take full advantage of your editor's syntax highlighting feature to beautifully render your raw strings. Just think about languages that support raw strings or here-strings natively — they often don’t get proper syntax highlighting at all!**
+<br>
 
 > [!NOTE]
 > `rawstr4c` was originally developed and now maintained as a subproject of [chsrc], which proudly benefits greatly from it.
@@ -27,9 +27,9 @@ With a dedicated Markdown file, you can explicitly define your raw strings insid
 
 ## Why implemented in [Raku]?
 
-Haha, because **[Raku]** is the **RAw string Kungfu Utility**!
+Because **Raku** is the **RAw string Kungfu Utility**!
 
-`rawstr4c` has NO module dependencies — just install [Rakudo] via your package manager and you're ready to go. Lightweight, hassle-free, and **a perfect excuse to explore [Raku], the language you can have fun with**.
+`rawstr4c` has no module dependencies by design — just install [Rakudo] via your package manager and you're ready to go. Lightweight, hassle-free, and **a perfect excuse to explore Raku, the language you can have fun with**.
 
 <br>
 
