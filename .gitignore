@@ -2,5 +2,8 @@
 
 *.tar.gz
 
-test/fixture/rawstr4c.c
-test/fixture/rawstr4c.h
+rawstr4c.c
+rawstr4c.h
+
+*.c
+*.h
