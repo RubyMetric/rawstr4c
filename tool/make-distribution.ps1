@@ -19,6 +19,21 @@ param(
   [switch]$upload
 )
 
+# 清理 test 目录中的 .c 和 .h 文件
+Write-Host "清理 test 目录中的 .c 和 .h 文件..." -ForegroundColor Yellow
+if (Test-Path "test") {
+  $cfiles = Get-ChildItem test -Recurse -Include "*.c", "*.h"
+  if ($cfiles.Count -gt 0) {
+    $cfiles | ForEach-Object {
+      Write-Host "删除: $($_.FullName)" -ForegroundColor Gray
+      Remove-Item $_.FullName -Force
+    }
+    Write-Host "已删除 $($cfiles.Count) 个文件" -ForegroundColor Green
+  } else {
+    Write-Host "test 目录中没有 .c 或 .h 文件" -ForegroundColor Green
+  }
+}
+
 $files = @()
 
 # 获取相对路径的函数
