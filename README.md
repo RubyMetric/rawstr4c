@@ -12,14 +12,24 @@
 
 # rawstr4c
 
-Use this tool when you need to write and maintain complex C language strings (raw strings for C). **It saves you from the nightmare of one-off string generation tools, turning you into a professional raw strings maintainer.**
+> raw strings for C  — `rawstr4c` frees you from the pain of manually escaping C strings and promotes you to a professional raw strings maintainer.
 
-By using a separate `rawstr4c.md` file, you explicitly record raw strings inside code blocks, along with the rules for generating variable names. By checking this file into your repository, you can continuously iterate on it.
+<br>
 
-**The core innovation of `rawstr4c` is to use a Markdown file — allowing you to take advantage of your editor’s Markdown syntax highlighting feature to highlight your raw strings!**
+With a dedicated Markdown file, you can explicitly define your raw strings inside code blocks, along with rules for generating variable names. By committing this file to your repository, you enable easy tracking and ongoing iteration for your raw strings.
+
+**The key innovation of `rawstr4c` is its use of a Markdown file — allowing you to take full advantage of your editor's syntax highlighting feature to beautifully render your raw strings. Just think about languages that support raw strings or here-strings natively — they often don’t get proper syntax highlighting at all!**
 
 > [!NOTE]
-> This tool was originally developed as and now maintained as a subproject of [chsrc] (which proudly benefits greatly from it)
+> `rawstr4c` was originally developed and now maintained as a subproject of [chsrc], which proudly benefits greatly from it.
+
+<br>
+
+## Why implemented in [Raku]?
+
+Haha, because **[Raku]** is the **RAw string Kungfu Utility**!
+
+`rawstr4c` has NO module dependencies — just install [Rakudo] via your package manager and you're ready to go. Lightweight, hassle-free, and **a perfect excuse to explore [Raku], the language you can have fun with**.
 
 <br>
 
@@ -28,6 +38,9 @@ By using a separate `rawstr4c.md` file, you explicitly record raw strings inside
 ## Install
 
 ![zef](https://raku.land/zef:ccmywish/rawstr4c/badges/version)
+
+1. Install [Rakudo] (bundled with `zef`)
+2. Then run:
 
 ```bash
 $ zef install rawstr4c
@@ -138,4 +151,6 @@ Note: unless otherwise specified, the first item is the default value
 
 
 
-[chsrc]: https://github.com/RubyMetric/chsrc
+[Raku]:   https://raku.org/
+[Rakudo]: https://rakudo.org/
+[chsrc]:  https://github.com/RubyMetric/chsrc
