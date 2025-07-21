@@ -7,27 +7,29 @@
  ! Contributors  :  Nul None  <nul@none.org>
  !               |
  ! Created On    : <2025-07-12>
- ! Last Modified : <2025-07-21>
+ ! Last Modified : <2025-07-22>
  ! ---------------------------------------------------------- -->
 
 # rawstr4c
 
-`rawstr4c`: raw strings for C  — frees you from the pain of manually escaping C strings and promotes you to a professional raw strings maintainer.
+rawstr4c - Raw strings for the C programming language
 
 <br>
 
-**The key innovation of rawstr4c is its use of a Markdown file to explicitly define raw strings inside code blocks — allowing you to fully leverage your editor’s syntax highlighting feature to beautifully render them!** After all, even languages with native raw strings or here-strings often lack proper highlighting.
+**The key innovation of `rawstr4c` is its use of a Markdown file to explicitly define raw strings inside code blocks — allowing you to fully leverage your editor’s syntax highlighting feature to beautifully render them!**
 
 <br>
 
 > [!NOTE]
-> `rawstr4c` was originally developed and now maintained as a subproject of [chsrc], which proudly benefits greatly from it.
+> `rawstr4c` was originally developed for [chsrc], and is now maintained as a subproject of it. [chsrc] benefits greatly from `rawstr4c`.
 
 <br>
 
+
+
 ## Why implemented in [Raku]?
 
-Because **Raku** is the **RAw string Kungfu Utility**!
+Because **Raku** is the **RAw strings Kungfu Utility**!
 
 `rawstr4c` has no module dependencies by design — just install [Rakudo] via your package manager and you're ready to go. Lightweight, hassle-free, and **a perfect excuse to explore Raku, the language you can have fun with**.
 
@@ -35,9 +37,23 @@ Because **Raku** is the **RAw string Kungfu Utility**!
 
 
 
+## Why do we still need it when we have `R"()"`
+
+Until now (2025-07), the C language does not have raw strings in its current ISO standard, but **both `GCC` and `Clang` have already implemented the extension `R"()"`**. In fact, it is enabled by default in `GCC`.
+
+However, the feature is ultimately just an extension. In `Clang`, it is not enabled by default (at least for now). Other C compilers may not implement it at all.
+
+Even if direct raw strings support is added in future C standards like C3x or C4x, `rawstr4c` still remains meaningful, because when raw strings are written directly in source code files, they cannot be properly highlighted according to the content.
+
+In [chsrc], we use both the native `R"()"` form and also `rawstr4c` to get the maximum flexibility and maintainability.
+
+<br>
+
+
+
 ## Install
 
-![zef](https://raku.land/zef:ccmywish/rawstr4c/badges/version)
+[![rawstr4c on Raku Land](https://raku.land/zef:ccmywish/rawstr4c/badges/version)](https://raku.land/zef:ccmywish/rawstr4c)
 
 1. Install [Rakudo] (bundled with `zef`)
 2. Then run:
