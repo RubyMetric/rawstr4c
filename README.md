@@ -12,11 +12,38 @@
 
 # rawstr4c
 
-Use this tool when you need to write complex C language strings.
+Use this tool when you need to write and maintain complex C language strings (raw strings for C). **It saves you from the nightmare of one-off string generation tools, turning you into a professional raw strings maintainer.**
+
+By using a separate `rawstr4c.md` file, you explicitly record raw strings inside code blocks, along with the rules for generating variable names. By checking this file into your repository, you can continuously iterate on it.
+
+**The core innovation of `rawstr4c` is to use a Markdown file — allowing you to take advantage of your editor’s Markdown syntax highlighting feature to highlight your raw strings!**
+
+> [!NOTE]
+> This tool was originally developed as a subproject of `chsrc` (which proudly benefits greatly from it). For easier maintenance, I have split it into this separate repository.
+
+<br>
+
+
+
+## Install
+
+![zef](https://raku.land/zef:ccmywish/rawstr4c/badges/version)
+
+```bash
+$ zef install rawstr4c
+```
+
+<br>
+
+
+
+## Usage
 
 ```bash
 $ rawstr4c --help
 ```
+
+You need to write a Markdown file (default `rawstr4c.md`) to record raw strings and configure `rawstr4c`. See below for configuration syntax.
 
 <br>
 
@@ -102,3 +129,9 @@ Note: unless otherwise specified, the first item is the default value
 - keep-postfix = `true` | `false`
 
   Whether the variable name uses postfix
+
+<br>
+
+
+
+[chsrc]: https://github.com/RubyMetric/chsrc
