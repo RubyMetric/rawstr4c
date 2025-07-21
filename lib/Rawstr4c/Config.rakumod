@@ -5,7 +5,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-16>
-# Last Modified : <2025-07-16>
+# Last Modified : <2025-07-21>
 #
 # Represent a section's working configuration
 # ---------------------------------------------------------------
@@ -170,5 +170,17 @@ class SectionConfig {
   #| RS4C-Bool
   method debug() {
     return self.get-inherited-config('debug', 'false');
+  }
+
+
+  #| RS4C-String
+  method output-h-file() {
+    return self.get-inherited-config('output-h-file', 'rawstr4c.h');
+  }
+
+
+  #| RS4C-String
+  method output-c-file() {
+    return self.get-inherited-config('output-c-file', 'rawstr4c.c');
   }
 }
