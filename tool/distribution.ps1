@@ -1,18 +1,18 @@
 # ---------------------------------------------------------------
 # SPDX-License-Identifier: GPL-3.0-or-later
 # ---------------------------------------------------------------
-# Script Name    : make-distribution.ps1
+# Script Name    : distribution.ps1
 # Script Authors : Aoran Zeng <ccmywish@qq.com>
 # Created On     : <2025-07-21>
 # Last Modified  : <2025-07-21>
 #
-# Make rawstr4c distribution file (tar.gz)
+# rawstr4c distribution file (tar.gz) operator
 #
 # Usage:
 #
 # Be sure we're at the root directory of the repository, then run:
 #
-#           .tool\make-distribution.ps1 [-upload]
+#       .tool\distribution.ps1 [-clean] [-create] [-upload]
 # ---------------------------------------------------------------
 
 param(
