@@ -12,29 +12,16 @@
 #
 # Be sure we're at the root directory of the repository, then run:
 #
-#       .tool\distribution.ps1 [-clean] [-create] [-upload]
+#       .\tool\distribution.ps1 -clean     # 清理 test 目录中的 .c/.h 文件
+#       .\tool\distribution.ps1 -make      # 清理并创建发布包
+#       .\tool\distribution.ps1 -upload    # 上传已存在的发布包到 fez
 # ---------------------------------------------------------------
 
 param(
+  [switch]$clean,
+  [switch]$make,
   [switch]$upload
 )
-
-# 清理 test 目录中的 .c 和 .h 文件
-Write-Host "清理 test 目录中的 .c 和 .h 文件..." -ForegroundColor Yellow
-if (Test-Path "test") {
-  $cfiles = Get-ChildItem test -Recurse -Include "*.c", "*.h"
-  if ($cfiles.Count -gt 0) {
-    $cfiles | ForEach-Object {
-      Write-Host "删除: $($_.FullName)" -ForegroundColor Gray
-      Remove-Item $_.FullName -Force
-    }
-    Write-Host "已删除 $($cfiles.Count) 个文件" -ForegroundColor Green
-  } else {
-    Write-Host "test 目录中没有 .c 或 .h 文件" -ForegroundColor Green
-  }
-}
-
-$files = @()
 
 # 获取相对路径的函数
 function Get-RelativePath($item) {
@@ -44,37 +31,114 @@ function Get-RelativePath($item) {
   return $item.FullName.Substring((Get-Location).Path.Length + 1)
 }
 
-# 添加 lib 目录（排除 .precomp）
-$files += Get-ChildItem lib -Recurse | Where-Object { $_.FullName -notlike "*\.precomp*" } | ForEach-Object { Get-RelativePath $_ }
-
-# 添加其他目录
-$files += Get-ChildItem bin, doc, test -Recurse | ForEach-Object { Get-RelativePath $_ }
-
-# 添加根目录文件
-$rootFiles = @('META6.json', 'LICENSE', 'README.md', 'Changes')
-foreach ($file in $rootFiles) {
-  if (Test-Path $file) {
-    $files += $file
+# 清理函数：删除 test 目录中的 .c 和 .h 文件
+function Invoke-Clean {
+  Write-Host "清理 test 目录中的 .c 和 .h 文件..." -ForegroundColor Yellow
+  if (Test-Path "test") {
+    $cfiles = Get-ChildItem test -Recurse -Include "*.c", "*.h"
+    if ($cfiles.Count -gt 0) {
+      $cfiles | ForEach-Object {
+        Write-Host "删除: $($_.FullName)" -ForegroundColor Gray
+        Remove-Item $_.FullName -Force
+      }
+      Write-Host "已删除 $($cfiles.Count) 个文件" -ForegroundColor Green
+    } else {
+      Write-Host "test 目录中没有找到 .c 或 .h 文件" -ForegroundColor Green
+    }
+  } else {
+    Write-Host "test 目录不存在" -ForegroundColor Yellow
   }
 }
 
-# 打包
-$archiveName = "rawstr4c-$(Get-Date -Format 'yyyyMMdd').tar.gz"
-$files | tar -czf $archiveName -T -
+# 打包函数：创建发布包
+function Invoke-Make {
+  Write-Host "开始创建发布包..." -ForegroundColor Yellow
 
-Write-Host "打包完成: $archiveName" -ForegroundColor Green
-Write-Host "提示: 可指定 -upload 直接上传" -ForegroundColor Green
+  # 先执行清理
+  Invoke-Clean
 
-# 如果指定了 upload 参数，则上传到 fez
-if ($upload) {
+  $files = @()
+
+  # 添加 lib 目录（排除 .precomp）
+  $files += Get-ChildItem lib -Recurse | Where-Object { $_.FullName -notlike "*\.precomp*" } | ForEach-Object { Get-RelativePath $_ }
+
+  # 添加其他目录
+  $files += Get-ChildItem bin, doc, test -Recurse | ForEach-Object { Get-RelativePath $_ }
+
+  # 添加根目录文件
+  $rootFiles = @('META6.json', 'LICENSE', 'README.md', 'Changes')
+  foreach ($file in $rootFiles) {
+    if (Test-Path $file) {
+      $files += $file
+    }
+  }
+
+  # 打包
+  $archiveName = "rawstr4c-$(Get-Date -Format 'yyyyMMdd').tar.gz"
+  $files | tar -czf $archiveName -T -
+
+  Write-Host "打包完成: $archiveName" -ForegroundColor Green
+  return $archiveName
+}
+
+# 上传函数：上传发布包到 fez
+function Invoke-Upload {
+  # 查找最新的发布包
+  $archives = Get-ChildItem "rawstr4c-*.tar.gz" | Sort-Object LastWriteTime -Descending
+
+  if ($archives.Count -eq 0) {
+    Write-Error "没有找到发布包文件，请先运行 -make 创建发布包"
+    exit 1
+  }
+
+  $latestArchive = $archives[0].Name
+  Write-Host "找到发布包: $latestArchive" -ForegroundColor Green
   Write-Host "正在上传到 fez..." -ForegroundColor Yellow
 
   try {
-    fez upload --file $archiveName
+    fez upload --file $latestArchive
     Write-Host "上传成功!" -ForegroundColor Green
   } catch {
     Write-Error "上传失败: $_"
     exit 1
   }
+}
+
+# 显示帮助信息
+function Show-Help {
+  Write-Host "rawstr4c distribution operator" -ForegroundColor Cyan
+  Write-Host ""
+  Write-Host "Usage:`n" -ForegroundColor White
+  Write-Host "  .\tool\distribution.ps1 -clean     # 清理 test 目录中的 .c/.h 文件" -ForegroundColor Gray
+  Write-Host "  .\tool\distribution.ps1 -make      # 清理并创建发布包" -ForegroundColor Gray
+  Write-Host "  .\tool\distribution.ps1 -upload    # 上传已存在的发布包到 fez" -ForegroundColor Gray
+  Write-Host ""
+}
+
+# 主逻辑
+$cleanInt = if ($clean) { 1 } else { 0 }
+$makeInt = if ($make) { 1 } else { 0 }
+$uploadInt = if ($upload) { 1 } else { 0 }
+$actionCount = $cleanInt + $makeInt + $uploadInt
+
+if ($actionCount -eq 0) {
+  Show-Help
+  exit 0
+}
+
+if ($actionCount -gt 1) {
+  Write-Error "只能指定一个操作参数"
+  Show-Help
+  exit 1
+}
+
+if ($clean) {
+  Invoke-Clean
+}
+elseif ($make) {
+  Invoke-Make
+}
+elseif ($upload) {
+  Invoke-Upload
 }
 
