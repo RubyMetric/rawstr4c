@@ -1,0 +1,6 @@
+.precomp
+
+*.tar.gz
+
+test/fixture/rawstr4c.c
+test/fixture/rawstr4c.h
