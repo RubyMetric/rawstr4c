@@ -1,6 +1,6 @@
 {
     "name": "rawstr4c",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Raw strings for the C programming language",
 
     "authors": ["Aoran Zeng"],
