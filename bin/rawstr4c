@@ -7,7 +7,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-12>
-# Last Modified : <2025-07-16>
+# Last Modified : <2025-07-22>
 #
 # rawstr4c:
 #
@@ -20,22 +20,27 @@ use Rawstr4c::Version;
 
 sub USAGE() {
   print qq:to/END/;
-    rawstr4c: Raw Strings for C (Artistic-2.0) v{Rawstr4c::Version::VERSION}-{Rawstr4c::Version::RELEASE_DATE}
+    NAME:
+       rawstr4c - Raw strings for the C programming language - (Artistic-2.0)
 
-    Usage: rawstr4c [options] <FILE.md|DIR>
+    VERSION:
+       v{Rawstr4c::Version::VERSION}-{Rawstr4c::Version::RELEASE_DATE}
 
-    Arguments:
-    FILE.md    Process a specific markdown file
-    DIR        Process rawstr4c.md file in the given directory
+    USAGE:
+       rawstr4c [options] <FILE.md|DIR>
 
-    Options:
-    -d|--debug    Show debug information during processing
-                  Value can be [generator|parser]. Default to generator.
+    ARGUMENTS:
+       FILE.md              Process the specified Markdown file
+       DIR                  Process the rawstr4c.md file in the given directory
 
-    -v|--version  Show version information
+    OPTIONS:
+       -d, --debug=<kind>   Show debug information during processing
+                            <kind> can be (generator|parser) (default: generator)
+       -v, --version        Show version information
+       -h, --help           Show this help message
 
-    -h|--help     Show this help message
-
+    MAINTAIN:
+       <https://github.com/RubyMetric/rawstr4c>
     END
 }
 
