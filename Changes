@@ -1,0 +1,17 @@
+Revision history for rawstr4c
+
+0.2.2  2025-07-21
+    - Support `output-h-file` and `output-c-file`
+    - Not show timestamp in generated files
+    - Transfer to the new repo
+
+0.2.1  2025-07-16
+    - Support `namespace`
+    - Fix some errors
+    - Prepare as a Raku distribution
+
+0.2.0  2025-07-16
+    - Rewrite: all are sections
+
+0.1.0  2025-07-12
+    - First basic implementation
