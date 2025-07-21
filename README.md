@@ -19,7 +19,7 @@ By using a separate `rawstr4c.md` file, you explicitly record raw strings inside
 **The core innovation of `rawstr4c` is to use a Markdown file — allowing you to take advantage of your editor’s Markdown syntax highlighting feature to highlight your raw strings!**
 
 > [!NOTE]
-> This tool was originally developed as a subproject of `chsrc` (which proudly benefits greatly from it). For easier maintenance, I have split it into this separate repository.
+> This tool was originally developed as and now maintained as a subproject of [chsrc] (which proudly benefits greatly from it)
 
 <br>
 
