@@ -10,7 +10,9 @@
 #
 # Usage:
 #
-#           .\make-distribution.ps1 [-upload]
+# Be sure we're at the root directory of the repository, then run:
+#
+#           .tool\make-distribution.ps1 [-upload]
 # ---------------------------------------------------------------
 
 param(
@@ -34,7 +36,7 @@ $files += Get-ChildItem lib -Recurse | Where-Object { $_.FullName -notlike "*\.p
 $files += Get-ChildItem bin, doc, test -Recurse | ForEach-Object { Get-RelativePath $_ }
 
 # 添加根目录文件
-$rootFiles = @('META6.json', 'LICENSE', 'README.md')
+$rootFiles = @('META6.json', 'LICENSE', 'README.md', 'Changes')
 foreach ($file in $rootFiles) {
   if (Test-Path $file) {
     $files += $file
