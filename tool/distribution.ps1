@@ -14,13 +14,15 @@
 #
 #       .\tool\distribution.ps1 -clean     # 清理 test 目录中的 .c/.h 文件
 #       .\tool\distribution.ps1 -make      # 清理并创建发布包
+#       .\tool\distribution.ps1 -show      # 显示发布包内容
 #       .\tool\distribution.ps1 -upload    # 上传已存在的发布包到 fez
 # ---------------------------------------------------------------
 
 param(
   [switch]$clean,
   [switch]$make,
-  [switch]$upload
+  [switch]$upload,
+  [switch]$show
 )
 
 # 获取相对路径的函数
@@ -104,22 +106,54 @@ function Invoke-Upload {
   }
 }
 
+# 显示包内容函数：显示发布包的内容
+function Invoke-Show {
+  # 查找最新的发布包
+  $archives = Get-ChildItem "rawstr4c-*.tar.gz" | Sort-Object LastWriteTime -Descending
+
+  if ($archives.Count -eq 0) {
+    Write-Error "没有找到发布包文件，请先运行 -make 创建发布包"
+    exit 1
+  }
+
+  $latestArchive = $archives[0].Name
+  Write-Host "发布包内容: $latestArchive" -ForegroundColor Green
+  Write-Host "----------------------------------------" -ForegroundColor Gray
+
+  try {
+    tar -tzf $latestArchive
+  } catch {
+    Write-Error "无法读取发布包内容: $_"
+    exit 1
+  }
+
+  Write-Host "----------------------------------------" -ForegroundColor Gray
+  $fileInfo = Get-Item $latestArchive
+  Write-Host "文件大小: $([math]::Round($fileInfo.Length / 1KB, 2)) KB" -ForegroundColor Cyan
+  Write-Host "创建时间: $($fileInfo.CreationTime)" -ForegroundColor Cyan
+}
+
 # 显示帮助信息
 function Show-Help {
-  Write-Host "rawstr4c distribution operator" -ForegroundColor Cyan
-  Write-Host ""
-  Write-Host "Usage:`n" -ForegroundColor White
-  Write-Host "  .\tool\distribution.ps1 -clean     # 清理 test 目录中的 .c/.h 文件" -ForegroundColor Gray
-  Write-Host "  .\tool\distribution.ps1 -make      # 清理并创建发布包" -ForegroundColor Gray
-  Write-Host "  .\tool\distribution.ps1 -upload    # 上传已存在的发布包到 fez" -ForegroundColor Gray
-  Write-Host ""
+  Write-Host @"
+rawstr4c distribution operator
+
+Usage:
+
+  .\tool\distribution.ps1 -clean     # 清理 test 目录中的 .c/.h 文件
+  .\tool\distribution.ps1 -make      # 清理并创建发布包
+  .\tool\distribution.ps1 -show      # 显示发布包内容
+  .\tool\distribution.ps1 -upload    # 上传已存在的发布包到 fez
+
+"@
 }
 
 # 主逻辑
 $cleanInt = if ($clean) { 1 } else { 0 }
 $makeInt = if ($make) { 1 } else { 0 }
 $uploadInt = if ($upload) { 1 } else { 0 }
-$actionCount = $cleanInt + $makeInt + $uploadInt
+$showInt = if ($show) { 1 } else { 0 }
+$actionCount = $cleanInt + $makeInt + $uploadInt + $showInt
 
 if ($actionCount -eq 0) {
   Show-Help
@@ -137,6 +171,9 @@ if ($clean) {
 }
 elseif ($make) {
   Invoke-Make
+}
+elseif ($show) {
+  Invoke-Show
 }
 elseif ($upload) {
   Invoke-Upload
