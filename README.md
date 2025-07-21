@@ -105,7 +105,7 @@ A configuration file should use this order:
 
 ```
 
-Configuration items always start with `-`, followed by the configuration item name and an `=`, and the right-hand value must be wrapped with ``` `` ```.
+Configuration items always start with `-`, followed by the configuration item name and an `=`. The right-hand value must be wrapped with ``` `` ```.
 
 Note: if the value is not arbitrarily given by the user, it should be set as a mode type, using `:` as a prefix.
 
@@ -130,7 +130,7 @@ Note: unless otherwise specified, the first item is the default value
 
 - output-c-file =
 
-  Custom generated c filename, default value is `rawstr4c.c`
+  Custom generated C filename, default value is `rawstr4c.c`
 
 - translate =
 
@@ -145,15 +145,15 @@ Note: unless otherwise specified, the first item is the default value
 
 - name =
 
-  Generated variable name, will include prefix and suffix by default. If this configuration item is not given, the section title will be used
+  Generated variable name, includes prefix and suffix by default. If this configuration item is not given, the section title will be used
 
 - name-literally = `false` | `true`
 
-  Ignore other configuration items and directly use `name` as the variable name
+  Ignore other configuration items and use `name` directly as the variable name
 
 - namespace =
 
-  Will serve as a prefix after `prefix` and before variable name `name`, affecting the next level section
+  Serves as a prefix after `prefix` and before variable name `name`, affecting nested sections
 
 - keep-prefix = `true` | `false`
 
