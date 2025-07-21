@@ -2,7 +2,7 @@
  ! SPDX-License-Identifier: GFDL-1.3-or-later
  ! -------------------------------------------------------------
  ! Doc Type      : Markdown
- ! Doc Name      : (rawstr4c introduction).md
+ ! Doc Name      : README.md
  ! Doc Authors   : Aoran Zeng <ccmywish@qq.com>
  ! Contributors  :  Nul None  <nul@none.org>
  !               |
@@ -95,9 +95,13 @@ Note: unless otherwise specified, the first item is the default value
   - `:global-variable` = output a `.h` file and corresponding `.c` file, defined as global variable
   - `:global-variable-only-header` = output only as a `.h` file, defined as global variable
 
-- ~~output-file~~ = (not yet implemented)
+- output-h-file =
 
   Custom generated header filename, default value is `rawstr4c.h`
+
+- output-c-file =
+
+  Custom generated c filename, default value is `rawstr4c.c`
 
 - translate =
 
