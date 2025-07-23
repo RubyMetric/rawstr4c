@@ -7,7 +7,7 @@
  ! Contributors  :  Nul None  <nul@none.org>
  !               |
  ! Created On    : <2025-07-12>
- ! Last Modified : <2025-07-22>
+ ! Last Modified : <2025-07-23>
  ! ---------------------------------------------------------- -->
 
 # rawstr4c
@@ -41,9 +41,13 @@ Because **Raku** is the **RAw strings Kungfu Utility**!
 
 Until now (2025-07), the C language does not have raw strings in its current ISO standard, but **both `GCC` and `Clang` have already implemented the extension `R"()"`**. In fact, it is enabled by default in `GCC`.
 
-However, the feature is ultimately just an extension. In `Clang`, it is not enabled by default (at least for now). Other C compilers may not implement it at all.
+However, there are several reasons why we still need `rawstr4c`:
 
-Even if direct raw strings support is added in future C standards like C3x or C4x, `rawstr4c` still remains meaningful, because when raw strings are written directly in source code files, they cannot be properly highlighted according to the content.
+1. `R"()"` is just an extension. Many projects that strictly adhere to `-std=c*` cannot use it
+2. Many C compilers may not implement this extension, limiting the choice of C compilers for projects
+3. `LLVM` only supports this extension after July 2024; versions prior to that do not support it
+
+Even if direct raw strings support is added in future C standards like `C3x` or `C4x`, `rawstr4c` still remains meaningful, because when raw strings are written directly in source code files, they cannot be properly highlighted according to the content.
 
 In [chsrc], we use both the native `R"()"` form and also `rawstr4c` to get the maximum flexibility and maintainability.
 
