@@ -63,8 +63,8 @@ my class CVariableNameGenerator {
     my $prefix = $config.prefix.string-value;
     my $postfix = $config.postfix.string-value;
 
-    my $keep-prefix = $config.keep-prefix.bool-value;
-    my $keep-postfix = $config.keep-postfix.bool-value;
+    my $no-prefix = $config.no-prefix.bool-value;
+    my $no-postfix = $config.no-postfix.bool-value;
 
     my $name = $config.name.string-value;
     my $namespace = $config.namespace.string-value;
@@ -84,7 +84,7 @@ my class CVariableNameGenerator {
       $varname = $name;
     } else {
       # 否则，按照规则组装变量名
-      $varname ~= $prefix if $keep-prefix && $prefix;
+      $varname ~= $prefix if (!$no-prefix) && $prefix;
 
       $varname ~= "_" if $varname && $namespace;
       $varname ~= $namespace if $namespace;
@@ -92,8 +92,8 @@ my class CVariableNameGenerator {
       $varname ~= "_" if $varname && $name;
       $varname ~= $name if $name;
 
-      $varname ~= "_" if $varname && $postfix && $keep-postfix;
-      $varname ~= $postfix if $postfix && $keep-postfix;
+      $varname ~= "_" if $varname && $postfix && (!$no-postfix);
+      $varname ~= $postfix if $postfix && (!$no-postfix);
     }
     return $varname || "unnamed_var";
   }

@@ -188,6 +188,11 @@ class Parser {
   #| 所有sections的扁平数组，已经是深度遍历的了
   has Section @!sections;
 
+  my %DEPRECATED_CONFIG_ITEMS = (
+    'keep-prefix'  => 'no-prefix',
+    'keep-postfix' => 'no-postfix'
+  );
+
   my @SUPPORTED_CONFIG_ITEMS = <
     output output-h-file output-c-file
     translate
@@ -199,11 +204,6 @@ class Parser {
     language
     debug
   >;
-
-  my %DEPRECATED_CONFIG_ITEMS = (
-    'keep-prefix'  => 'no-prefix',
-    'keep-postfix' => 'no-postfix'
-  );
 
   #| $markdown-file 必须是一个存在的 markdown 文件路径
   method new($markdown-file) {

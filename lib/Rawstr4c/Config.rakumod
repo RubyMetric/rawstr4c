@@ -98,13 +98,13 @@ class SectionConfig {
   }
 
   #| RS4C-Bool
-  method keep-prefix() {
-    return self.get-inherited-config('keep-prefix', 'true');
+  method no-prefix() {
+    return self.get-inherited-config('no-prefix', 'false');
   }
 
   #| RS4C-Bool
-  method keep-postfix() {
-    return self.get-inherited-config('keep-postfix', 'true');
+  method no-postfix() {
+    return self.get-inherited-config('no-postfix', 'false');
   }
 
   #| RS4C-Bool
