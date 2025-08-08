@@ -5,7 +5,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-16>
-# Last Modified : <2025-07-21>
+# Last Modified : <2025-08-08>
 #
 # Represent a section's working configuration
 # ---------------------------------------------------------------
@@ -107,6 +107,10 @@ class SectionConfig {
     return self.get-inherited-config('keep-postfix', 'true');
   }
 
+  #| RS4C-Bool
+  method no-trailing-new-line() {
+    return self.get-inherited-config('no-trailing-new-line', 'false');
+  }
 
   #| RS4C-String
   method language() {

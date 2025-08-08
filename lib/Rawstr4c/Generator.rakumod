@@ -5,7 +5,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-12>
-# Last Modified : <2025-07-21>
+# Last Modified : <2025-08-08>
 #
 # Generates C code from rawstr4c configuration
 # ---------------------------------------------------------------
@@ -220,6 +220,13 @@ class Generator {
     my $debug-in-config = $config.debug.bool-value;
 
     return unless $rawstr;
+
+    my $no-trailing-new-line = $config.no-trailing-new-line.bool-value;
+    if $no-trailing-new-line {
+      $rawstr = $rawstr.chomp;
+      # or use this:
+      # $rawstr = $rawstr.subst(/\n$/, '');
+    }
 
     my $translate-mode = $config.translate-mode.mode-value;
     my $output-mode = $config.output-mode.mode-value;
