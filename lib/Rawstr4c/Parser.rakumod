@@ -5,7 +5,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-12>
-# Last Modified : <2025-07-16>
+# Last Modified : <2025-08-08>
 #
 # rawstr4c.md parsing
 # ---------------------------------------------------------------
@@ -188,6 +188,23 @@ class Parser {
   #| 所有sections的扁平数组，已经是深度遍历的了
   has Section @!sections;
 
+  my @SUPPORTED_CONFIG_ITEMS = <
+    output output-h-file output-c-file
+    translate
+    name name-literally namespace
+    postfix
+    keep-prefix keep-postfix
+    no-prefix   no-postfix
+    no-trailing-new-line
+    language
+    debug
+  >;
+
+  my %DEPRECATED_CONFIG_ITEMS = (
+    'keep-prefix'  => 'no-prefix',
+    'keep-postfix' => 'no-postfix'
+  );
+
   #| $markdown-file 必须是一个存在的 markdown 文件路径
   method new($markdown-file) {
     self.bless(:input-file($markdown-file));
@@ -204,6 +221,16 @@ class Parser {
     if $line ~~ /^ '-' \s* (<[a..z\-]>+) \s* '=' \s* '`' (.+?) '`' / {
       my $key = ~$0;
       my $value = ~$1;
+
+      if $key ∉ @SUPPORTED_CONFIG_ITEMS {
+        note "[Warning!!] Unrecognized config '$key' (ignored)";
+      }
+
+      if %DEPRECATED_CONFIG_ITEMS{$key}:exists {
+        my $new-option = %DEPRECATED_CONFIG_ITEMS{$key};
+        note "[Deprecate] config '$key' is deprecated, please use '$new-option' instead";
+      }
+
       $section-config.set($key, $value);
       return True;
     }
