@@ -113,7 +113,7 @@ class Parser {
     output output-h-file output-c-file
     translate
     name name-literally namespace
-    postfix
+    prefix postfix
     no-prefix   no-postfix
     no-trailing-new-line
     language
