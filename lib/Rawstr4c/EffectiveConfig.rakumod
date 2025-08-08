@@ -1,21 +1,21 @@
 # ---------------------------------------------------------------
 # SPDX-License-Identifier: Artistic-2.0
 # ---------------------------------------------------------------
-# File Name     : Config.rakumod
+# File Name     : EffectiveConfig.rakumod
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-16>
 # Last Modified : <2025-08-08>
 #
-# Represent a section's working configuration
+# Represent a section's effective configuration
 # ---------------------------------------------------------------
 
 use Rawstr4c::Parser;
 
-unit module Rawstr4c::Config;
+unit module Rawstr4c::EffectiveConfig;
 
 #| 一个 section 的配置 (基于层次化结构而形成的最终真正生效的配置)
-class SectionConfig {
+class EffectiveSessionConfig is export {
 
   has Rawstr4c::Parser::Section $.section;
 

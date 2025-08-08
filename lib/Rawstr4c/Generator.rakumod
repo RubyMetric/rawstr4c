@@ -13,7 +13,7 @@
 unit module Rawstr4c::Generator;
 
 use Rawstr4c::Parser;
-use Rawstr4c::Config;
+use Rawstr4c::EffectiveConfig;
 use Rawstr4c::Version;
 
 my class CStringConverter {
@@ -58,7 +58,7 @@ my class CVariableNameGenerator {
 
   method generate($section) {
 
-    my $config = Rawstr4c::Config::SectionConfig.new($section);
+    my $config = EffectiveSessionConfig.new($section);
 
     my $prefix = $config.prefix.string-value;
     my $postfix = $config.postfix.string-value;
@@ -215,7 +215,7 @@ class Generator {
     my $title = $section.title;
     my $rawstr = $section.codeblock;
 
-    my $config = Rawstr4c::Config::SectionConfig.new($section);
+    my $config = EffectiveSessionConfig.new($section);
 
     my $debug-in-config = $config.debug.bool-value;
 
