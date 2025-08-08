@@ -198,12 +198,13 @@ class Parser {
     translate
     name name-literally namespace
     postfix
-    keep-prefix keep-postfix
     no-prefix   no-postfix
     no-trailing-new-line
     language
     debug
   >;
+
+  my @RECOGNIZED_CONFIG_ITEMS = (|@SUPPORTED_CONFIG_ITEMS, |%DEPRECATED_CONFIG_ITEMS.keys);
 
   #| $markdown-file 必须是一个存在的 markdown 文件路径
   method new($markdown-file) {
@@ -222,7 +223,7 @@ class Parser {
       my $key = ~$0;
       my $value = ~$1;
 
-      if $key ∉ @SUPPORTED_CONFIG_ITEMS {
+      if $key ∉ @RECOGNIZED_CONFIG_ITEMS {
         note "[Warning!!] Unrecognized config '$key' (ignored)";
       }
 
