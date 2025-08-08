@@ -10,6 +10,7 @@
 # Represent a section's effective configuration
 # ---------------------------------------------------------------
 
+use Rawstr4c::Config;
 use Rawstr4c::Parser;
 
 unit module Rawstr4c::EffectiveConfig;
@@ -38,7 +39,7 @@ class EffectiveSessionConfig is export {
     }
     # 如果都没找到，生成一个新值
     # 当 $default 为空时，生成的是 RS4C-Nil
-    return Rawstr4c::Parser::ConfigItem's-Value.new($default);
+    return RS4CValue.new($default);
   }
 
 
@@ -55,7 +56,7 @@ class EffectiveSessionConfig is export {
     if ! $default.defined {
       # say "DEBUG: Key <$key> is undefined";
     }
-    return Rawstr4c::Parser::ConfigItem's-Value.new($default);
+    return RS4CValue.new($default);
   }
 
 
@@ -94,7 +95,7 @@ class EffectiveSessionConfig is export {
       $postfix = $config-postfix.string-value();
     }
 
-    return Rawstr4c::Parser::ConfigItem's-Value.new($postfix);
+    return RS4CValue.new($postfix);
   }
 
   #| RS4C-Bool
@@ -125,7 +126,7 @@ class EffectiveSessionConfig is export {
     } else {
       $lang = $config-language.string-value;
     }
-    return Rawstr4c::Parser::ConfigItem's-Value.new($lang);
+    return RS4CValue.new($lang);
   }
 
 
@@ -141,7 +142,7 @@ class EffectiveSessionConfig is export {
     } else {
       $name = $config-name.string-value;
     }
-    return Rawstr4c::Parser::ConfigItem's-Value.new($name);
+    return RS4CValue.new($name);
   }
 
   #| RS4C-Bool
@@ -167,7 +168,7 @@ class EffectiveSessionConfig is export {
       }
       $parent = $parent.parent;
     }
-    return Rawstr4c::Parser::ConfigItem's-Value.new($current-namespace);
+    return RS4CValue.new($current-namespace);
   }
 
 
