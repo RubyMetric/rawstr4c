@@ -1,5 +1,10 @@
 Revision history for rawstr4c
 
+1.0.0 2025-08-08
+    - Support `no-trailing-new-line`
+    - Support `no-prefix` and `no-postfix`
+    - Deprecate `keep-prefix` and `keep-postfix`
+
 0.2.3 2025-07-22
     - Update usage
 
