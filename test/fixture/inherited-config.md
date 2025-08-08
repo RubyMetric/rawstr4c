@@ -1,5 +1,5 @@
 - prefix = `ROOT`
-- keep-prefix = `true`
+- no-prefix = `false`
 
 ```c
 root code;

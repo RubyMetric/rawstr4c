@@ -7,7 +7,7 @@
  ! Contributors  :  Nul None  <nul@none.org>
  !               |
  ! Created On    : <2025-07-12>
- ! Last Modified : <2025-07-23>
+ ! Last Modified : <2025-08-08>
  ! ---------------------------------------------------------- -->
 
 # rawstr4c
@@ -159,13 +159,17 @@ Note: unless otherwise specified, the first item is the default value
 
   Serves as a prefix after `prefix` and before variable name `name`, affecting nested sections
 
-- keep-prefix = `true` | `false`
+- no-prefix = `false` | `true`
 
   Whether the variable name uses prefix
 
-- keep-postfix = `true` | `false`
+- no-postfix = `false` | `true`
 
   Whether the variable name uses postfix
+
+- no-trailing-new-line = `false` | `true`
+
+  Whether the last keeps a trailing new line character
 
 <br>
 
