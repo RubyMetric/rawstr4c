@@ -295,5 +295,6 @@ class Parser {
   method debug() {
     self.debug-print-sections-flatly();
     self.debug-print-sections-hierarchyly();
+    say '';
   }
 }
