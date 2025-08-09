@@ -7,7 +7,7 @@
  ! Contributors  :  Nul None  <nul@none.org>
  !               |
  ! Created On    : <2025-07-12>
- ! Last Modified : <2025-08-08>
+ ! Last Modified : <2025-08-09>
  ! ---------------------------------------------------------- -->
 
 # rawstr4c
@@ -166,10 +166,6 @@ Note: unless otherwise specified, the first item is the default value
 - no-postfix = `false` | `true`
 
   Whether the variable name uses postfix
-
-- no-trailing-new-line = `false` | `true`
-
-  Whether the last keeps a trailing new line character
 
 <br>
 
