@@ -5,7 +5,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-16>
-# Last Modified : <2025-08-08>
+# Last Modified : <2025-08-09>
 #
 # Represent a section's effective configuration
 # ---------------------------------------------------------------
@@ -106,11 +106,6 @@ class EffectiveSessionConfig is export {
   #| RS4C-Bool
   method no-postfix() {
     return self.get-inherited-config('no-postfix', 'false');
-  }
-
-  #| RS4C-Bool
-  method no-trailing-new-line() {
-    return self.get-inherited-config('no-trailing-new-line', 'false');
   }
 
   #| RS4C-String

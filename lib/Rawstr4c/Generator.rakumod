@@ -5,7 +5,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-12>
-# Last Modified : <2025-08-08>
+# Last Modified : <2025-08-09>
 #
 # Generates C code from rawstr4c configuration
 # ---------------------------------------------------------------
@@ -215,18 +215,17 @@ class Generator {
     my $title = $section.title;
     my $rawstr = $section.codeblock;
 
+    # 通过 Raku 的方法 .lines 读到的行中，每一行结尾都有换行符
+    # 最后一行，也是如此。然而最后一行的换行符是不应该存在的
+    $rawstr = $rawstr.chomp;
+    # or use this:
+    # $rawstr = $rawstr.subst(/\n$/, '');
+
     my $config = EffectiveSessionConfig.new($section);
 
     my $debug-in-config = $config.debug.bool-value;
 
     return unless $rawstr;
-
-    my $no-trailing-new-line = $config.no-trailing-new-line.bool-value;
-    if $no-trailing-new-line {
-      $rawstr = $rawstr.chomp;
-      # or use this:
-      # $rawstr = $rawstr.subst(/\n$/, '');
-    }
 
     my $translate-mode = $config.translate-mode.mode-value;
     my $output-mode = $config.output-mode.mode-value;

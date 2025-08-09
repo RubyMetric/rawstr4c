@@ -1,7 +1,5 @@
 # Linting
 
-- no-trailing-new-line = `true`
-
 - keep-prefix = `false`
 - keep-postfix = `true`
 - unknown-option = `some-value`
