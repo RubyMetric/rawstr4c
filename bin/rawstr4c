@@ -7,7 +7,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-12>
-# Last Modified : <2025-07-22>
+# Last Modified : <2025-09-27>
 #
 # rawstr4c:
 #
@@ -24,7 +24,7 @@ sub USAGE() {
        rawstr4c - Raw strings for the C programming language - (Artistic-2.0)
 
     VERSION:
-       v{Rawstr4c::VERSION}-{Rawstr4c::RELEASE_DATE}
+       v{Rawstr4c::VERSION} ({Rawstr4c::RELEASE_DATE})
 
     USAGE:
        rawstr4c [options] <FILE.md|DIR>
