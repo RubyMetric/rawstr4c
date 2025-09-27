@@ -15,8 +15,8 @@
 use lib '../lib';
 use Rawstr4c::Parser;
 
-my $test-file1 = './fixture/hierarchy-with-root.md';
-my $test-file2 = './fixture/hierarchy-without-root.md';
+my $test-file1 = './input/hierarchy-with-root.md';
+my $test-file2 = './input/hierarchy-without-root.md';
 my $parser1 = Rawstr4c::Parser.new($test-file1);
 my $parser2 = Rawstr4c::Parser.new($test-file2);
 
