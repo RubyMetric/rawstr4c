@@ -16,6 +16,8 @@ use lib '../lib';
 
 use Test;
 
+# 少些一点文件名
+my $f = Nil;
 
 sub run-rawstr4c($file) {
   # 相当糟糕的是，note 输出到 stderr，merge 的时候会和 stdout 的输出顺序搞乱。。。
@@ -116,6 +118,26 @@ EOF
 
 
 
+$f = "output-to-default-files.md";
+run-rawstr4c($f);
+ok "./input/rawstr4c.c".IO.e, "$f Generate .c";
+ok "./input/rawstr4c.h".IO.e, "$f Generate .h";
 
+"./input/rawstr4c.c".IO.unlink;
+"./input/rawstr4c.h".IO.unlink;
+
+$f = "output-to-terminal-besides-save-files.md";
+$result = run-rawstr4c($f)[0];
+ok $result.contains(Q:to/EOF/
+char _rawstr4c_some_config_in_toml[] = "[setting]\ninit = true";
+EOF
+), "$f";
+ok "./input/rawstr4c.c".IO.e, "$f Generate .c";
+ok "./input/rawstr4c.h".IO.e, "$f Generate .h";
+
+$f = "output-to-customized-files.md";
+run-rawstr4c($f);
+ok "./input/custom_strings_impl.c".IO.e, "$f Generate custom_strings_impl.c";
+ok "./input/custom_strings.h".IO.e,      "$f Generate custom_strings.h";
 
 done-testing;
