@@ -89,7 +89,7 @@ sub MAIN(
   my $parser = Rawstr4c::Parser.new($markdown-file.Str);
   $parser.parse;
 
-  my $generator = Rawstr4c::Generator::Generator.new($parser);
+  my $generator = Rawstr4c::Generator.new($parser);
 
   if ($debug.defined) {
     given $debug {

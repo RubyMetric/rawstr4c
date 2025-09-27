@@ -10,7 +10,7 @@
 # Generates C code from rawstr4c configuration
 # ---------------------------------------------------------------
 
-unit module Rawstr4c::Generator;
+unit package Rawstr4c;
 
 use Rawstr4c::Parser;
 use Rawstr4c::EffectiveConfig;

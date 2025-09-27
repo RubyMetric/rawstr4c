@@ -13,7 +13,7 @@
 use Rawstr4c::Config;
 use Rawstr4c::Parser;
 
-unit module Rawstr4c::EffectiveConfig;
+unit package Rawstr4c;
 
 #| 一个 section 的配置 (基于层次化结构而形成的最终真正生效的配置)
 class EffectiveSessionConfig is export {
