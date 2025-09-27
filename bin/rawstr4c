@@ -24,7 +24,7 @@ sub USAGE() {
        rawstr4c - Raw strings for the C programming language - (Artistic-2.0)
 
     VERSION:
-       v{Rawstr4c::Version::VERSION}-{Rawstr4c::Version::RELEASE_DATE}
+       v{Rawstr4c::VERSION}-{Rawstr4c::RELEASE_DATE}
 
     USAGE:
        rawstr4c [options] <FILE.md|DIR>
@@ -55,7 +55,7 @@ sub MAIN(
 )
 {
   if ($version || $v) {
-    print Rawstr4c::Version::VERSION_CONTENT_FOR_-version;
+    print Rawstr4c::VERSION_CONTENT_FOR_-version;
     exit(0);
   }
 
