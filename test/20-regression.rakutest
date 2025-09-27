@@ -16,43 +16,43 @@ use lib '../lib';
 
 use Test;
 
-sub run-rawstr4c($file, $merged=False) {
 
-  my $stdout_flag = False;
-  my $merge_flag  = False;
-
-  if ($merged) {
-    $merge_flag = True;
-    $stdout_flag = False;
-  } else {
-    $merge_flag = False;
-    $stdout_flag = True;
-  }
-
-  my $proc = run 'raku', '-I../lib', '../bin/rawstr4c', "input/$file", :out($stdout_flag), :merge($merge_flag);
-  $proc.out.slurp.chomp;
+sub run-rawstr4c($file) {
+  # 相当糟糕的是，note 输出到 stderr，merge 的时候会和 stdout 的输出顺序搞乱。。。
+  # 所以有时候不是我们在终端上看到的那样
+  # my $proc = run 'raku', '-I../lib', '../bin/rawstr4c', "input/$file", :out($stdout_flag), :merge($merge_flag);
+  # 因此我们还是分别捕获吧
+  my $proc = run 'raku', '-I../lib', '../bin/rawstr4c', "input/$file", :out, :err;
+  [$proc.out.slurp.chomp, $proc.err.slurp.chomp];
 }
 
 # 这里不能用q，因为q中 \ 在起作用
-is run-rawstr4c(""), Q:to/EOF/
+is run-rawstr4c("")[0], Q:to/EOF/
 char _rawstr4c_test_in_raku[] = "say \"hello world\";";
 EOF
 , "Default file";
 
 # 同时也检查一下lint的信息
-is run-rawstr4c("lint.md", True), Q:to/EOF/
+my ($result, $lint) = run-rawstr4c("lint.md");
+
+is $result, Q:to/EOF/
+char _rawstr4c_section_in_bash[] = "echo Test linting";
+EOF
+, "lint.md";
+
+# 这里需要 chomp 一下
+is $lint, Q:to/EOF/.chomp
 [Deprecate] config 'keep-prefix' is deprecated, please use 'no-prefix' instead
 [Deprecate] config 'keep-postfix' is deprecated, please use 'no-postfix' instead
 [Warning!!] Unrecognized config 'unknown-option' (ignored)
 [Warning!!] Unrecognized config 'another-bad-option' (ignored)
-char _rawstr4c_section_in_bash[] = "echo Test linting";
 EOF
 , "Lint";
 
 
 
 sub test($file, $expected) {
-  is run-rawstr4c($file), $expected, $file;
+  is run-rawstr4c($file)[0], $expected, $file;
 }
 
 test "translate-escape.md", Q:to/EOF/;
