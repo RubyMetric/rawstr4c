@@ -12,7 +12,7 @@
 
 use Rawstr4c::Config;
 
-unit module Rawstr4c::Parser;
+unit package Rawstr4c;
 
 #| 包含所有 config items 的容器
 #| 所有 get 出的值一定是 RS4CValue 实例
@@ -43,14 +43,14 @@ my class ConfigBlock {
 
 
 #| 表示一个 section
-class Section {
+class Parser::Section {
 
-  has Str         $.title;
-  has Int         $.level;
-  has ConfigBlock $.configblock;
-  has Str         $.codeblock is rw;
-  has Section     $.parent is rw;
-  has Section     @.children;
+  has Str              $.title;
+  has Int              $.level;
+  has ConfigBlock      $.configblock;
+  has Str              $.codeblock is rw;
+  has Parser::Section  $.parent is rw;
+  has Parser::Section  @.children;
 
 
   method new($title, $level) {

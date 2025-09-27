@@ -86,7 +86,7 @@ sub MAIN(
     exit(1);
   }
 
-  my $parser = Rawstr4c::Parser::Parser.new($markdown-file.Str);
+  my $parser = Rawstr4c::Parser.new($markdown-file.Str);
   $parser.parse;
 
   my $generator = Rawstr4c::Generator::Generator.new($parser);

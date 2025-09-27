@@ -192,7 +192,7 @@ my class CVariableGenerator {
 class Generator {
 
   has Bool                     $!enable-debug = False; # 是否启用调试模式
-  has Rawstr4c::Parser::Parser $.parser;
+  has Rawstr4c::Parser         $.parser;
   has CStringConverter         $.string-converter;
   has CVariableNameGenerator   $.varname-generator;
   has CVariableGenerator       $.variable-generator;
