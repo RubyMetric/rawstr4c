@@ -16,9 +16,20 @@ use lib '../lib';
 
 use Test;
 
-sub run-rawstr4c($file) {
-  # 只捕获 stdout，不捕获 stderr
-  my $proc = run 'raku', '-I../lib', '../bin/rawstr4c', "input/$file", :out;
+sub run-rawstr4c($file, $merged=False) {
+
+  my $stdout_flag = False;
+  my $merge_flag  = False;
+
+  if ($merged) {
+    $merge_flag = True;
+    $stdout_flag = False;
+  } else {
+    $merge_flag = False;
+    $stdout_flag = True;
+  }
+
+  my $proc = run 'raku', '-I../lib', '../bin/rawstr4c', "input/$file", :out($stdout_flag), :merge($merge_flag);
   $proc.out.slurp.chomp;
 }
 
@@ -27,6 +38,17 @@ is run-rawstr4c(""), Q:to/EOF/
 char _rawstr4c_test_in_raku[] = "say \"hello world\";";
 EOF
 , "Default file";
+
+# 同时也检查一下lint的信息
+is run-rawstr4c("lint.md", True), Q:to/EOF/
+[Deprecate] config 'keep-prefix' is deprecated, please use 'no-prefix' instead
+[Deprecate] config 'keep-postfix' is deprecated, please use 'no-postfix' instead
+[Warning!!] Unrecognized config 'unknown-option' (ignored)
+[Warning!!] Unrecognized config 'another-bad-option' (ignored)
+char _rawstr4c_section_in_bash[] = "echo Test linting";
+EOF
+, "Lint";
+
 
 
 sub test($file, $expected) {
@@ -91,6 +113,9 @@ char L1_level_2_in_c[] = "level2 code;";
 
 char L3_level_3_in_c[] = "level3 code;";
 EOF
+
+
+
 
 
 done-testing;
