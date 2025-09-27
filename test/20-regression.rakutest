@@ -1,0 +1,96 @@
+#!/usr/bin/env raku
+# ---------------------------------------------------------------
+# SPDX-License-Identifier: GPL-3.0-or-later
+# ---------------------------------------------------------------
+# Test File     : 20-regression.rakutest
+# Test Authors  : Aoran Zeng <ccmywish@qq.com>
+# Created On    : <2025-09-27>
+# Last Modified : <2025-09-27>
+#
+# $(cwd) 为 test/ 时:
+#
+#     raku ./20-regression.rakutest
+# ---------------------------------------------------------------
+
+use lib '../lib';
+
+use Test;
+
+sub run-rawstr4c($file) {
+  # 只捕获 stdout，不捕获 stderr
+  my $proc = run 'raku', '-I../lib', '../bin/rawstr4c', "input/$file", :out;
+  $proc.out.slurp.chomp;
+}
+
+# 这里不能用q，因为q中 \ 在起作用
+is run-rawstr4c(""), Q:to/EOF/
+char _rawstr4c_test_in_raku[] = "say \"hello world\";";
+EOF
+, "Default file";
+
+
+sub test($file, $expected) {
+  is run-rawstr4c($file), $expected, $file;
+}
+
+test "translate-escape.md", Q:to/EOF/;
+char _rawstr4c_test_for_escape_mode_in_bash[] = "echo \"Hello World!\"\nprintf \"Line with \\\"quotes\\\" and 'apostrophes'\\n\"";
+EOF
+
+test "translate-hex.md", Q:to/EOF/;
+char _rawstr4c_test_for_hex_mode_in_bash[] = "\x65\x63\x68\x6f\x20\x22\x48\x65\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x21\x22";
+EOF
+
+test "translate-oct.md", Q:to/EOF/;
+char _rawstr4c_test_for_oct_mode_in_bash[] = "\145\143\150\157\040\042\110\145\154\154\157\040\127\157\162\154\144\041\042";
+EOF
+
+test "no-trailing-new-line.md", Q:to/EOF/;
+char _rawstr4c_in_sh[] = "echo 'hello world'\necho 'hello Raku'\n";
+EOF
+
+
+test "hierarchy-with-root.md", Q:to/EOF/;
+char _rawstr4c_in_c[] = "int root_code_block = 1;";
+
+char _rawstr4c_maven_config_in_xml[] = "<settings>\n  <mirrors>\n  </mirrors>\n</settings>";
+
+char _rawstr4c_gradle_config_in_groovy[] = "repositories {\n  maven { url 'https://example.com' }\n}";
+
+char _rawstr4c_pip_config_in_bash[] = "pip config set global.index-url https://example.com";
+
+char _rawstr4c_conda_config_in_yaml[] = "channels:\n  - https://example.com/conda";
+
+char _rawstr4c_dockerfile_in_dockerfile[] = "FROM ubuntu:20.04\nRUN echo \"Hello World\"";
+
+char _rawstr4c_multi_stage_build_in_dockerfile[] = "FROM node:16 AS builder\nWORKDIR /app\nCOPY . .\nRUN npm install";
+EOF
+
+
+test "hierarchy-without-root.md", Q:to/EOF/;
+char _rawstr4c_maven_config_in_xml[] = "<settings>\n  <mirrors>\n  </mirrors>\n</settings>";
+
+char _rawstr4c_gradle_config_in_groovy[] = "repositories {\n  maven { url 'https://example.com' }\n}";
+
+char _rawstr4c_pip_config_in_bash[] = "pip config set global.index-url https://example.com";
+
+char _rawstr4c_conda_config_in_yaml[] = "channels:\n  - https://example.com/conda";
+
+char _rawstr4c_dockerfile_in_dockerfile[] = "FROM ubuntu:20.04\nRUN echo \"Hello World\"";
+
+char _rawstr4c_multi_stage_build_in_dockerfile[] = "FROM node:16 AS builder\nWORKDIR /app\nCOPY . .\nRUN npm install";
+EOF
+
+
+test "inherited-config.md", Q:to/EOF/;
+char ROOT_in_c[] = "root code;";
+
+char L1_level_1_in_c[] = "level1 code;";
+
+char L1_level_2_in_c[] = "level2 code;";
+
+char L3_level_3_in_c[] = "level3 code;";
+EOF
+
+
+done-testing;
