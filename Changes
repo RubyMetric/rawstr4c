@@ -1,5 +1,9 @@
 Revision history for rawstr4c
 
+1.1.0 2025-09-27
+    - Organize code using `package`
+    - Add tests
+
 1.0.0 2025-08-08
     - Support `no-prefix` and `no-postfix`
     - Deprecate `keep-prefix` and `keep-postfix`
