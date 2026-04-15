@@ -7,7 +7,7 @@
  ! Contributors  :  Nul None  <nul@none.org>
  !               |
  ! Created On    : <2025-07-12>
- ! Last Modified : <2025-08-09>
+ ! Last Modified : <2026-04-15>
  ! ---------------------------------------------------------- -->
 
 # rawstr4c
@@ -135,6 +135,10 @@ Note: unless otherwise specified, the first item is the default value
 - output-c-file =
 
   Custom generated C filename, default value is `rawstr4c.c`
+
+- input-file =
+
+  Get input from an existing file, rather than the codeblock
 
 - translate =
 
