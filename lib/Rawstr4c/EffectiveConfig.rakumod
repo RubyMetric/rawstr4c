@@ -5,7 +5,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-16>
-# Last Modified : <2025-08-09>
+# Last Modified : <2026-04-15>
 #
 # Represent a section's effective configuration
 # ---------------------------------------------------------------
@@ -143,6 +143,12 @@ class EffectiveSessionConfig is export {
   #| RS4C-Bool
   method name-literally() {
     return self.get-direct-config('name-literally', 'false');
+  }
+
+
+  #| RS4C-String
+  method input-file() {
+    return self.get-direct-config('input-file', '').string-value;
   }
 
 

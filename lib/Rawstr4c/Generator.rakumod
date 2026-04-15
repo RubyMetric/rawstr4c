@@ -5,7 +5,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-12>
-# Last Modified : <2025-08-09>
+# Last Modified : <2026-04-15>
 #
 # Generates C code from rawstr4c configuration
 # ---------------------------------------------------------------
@@ -222,6 +222,20 @@ class Generator {
     # $rawstr = $rawstr.subst(/\n$/, '');
 
     my $config = EffectiveSessionConfig.new($section);
+
+    # If input-file is configured, read from that external file instead of the codeblock
+    my $input-file = $config.input-file;
+
+    if $input-file && $rawstr {
+      note "[Error] config 'input-file' is specified but codeblock is also present for section '$title'. Please provide only one of them.";
+      exit 1
+    }
+
+    if $input-file {
+      my $md-dir = $.parser.input-file.IO.dirname;
+      my $full-path = $md-dir.IO.child($input-file);
+      $rawstr = $full-path.slurp.chomp;
+    }
 
     my $debug-in-config = $config.debug.bool-value;
 

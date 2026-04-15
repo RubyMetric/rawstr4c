@@ -5,7 +5,7 @@
 # File Authors  : Aoran Zeng <ccmywish@qq.com>
 # Contributors  :  Nul None  <nul@none.org>
 # Created On    : <2025-07-12>
-# Last Modified : <2025-08-09>
+# Last Modified : <2026-04-15>
 #
 # rawstr4c.md parsing
 # ---------------------------------------------------------------
@@ -116,6 +116,7 @@ class Parser {
     prefix postfix
     no-prefix   no-postfix
     language
+    input-file
     debug
   >;
 
